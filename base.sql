@@ -16,6 +16,15 @@
 CREATE DATABASE IF NOT EXISTS `broadcaster` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `broadcaster`;
 
+-- Export de la structure de la table broadcaster. users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(60) NOT NULL,
+  `password` text DEFAULT NULL,
+  `role` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Export de la structure de la table broadcaster. messages
 CREATE TABLE IF NOT EXISTS `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -26,16 +35,6 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   KEY `fk_messages_users` (`user_id`),
   CONSTRAINT `fk_messages_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Les données exportées n'étaient pas sélectionnées.
--- Export de la structure de la table broadcaster. users
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(60) NOT NULL,
-  `password` text DEFAULT NULL,
-  `role` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Les données exportées n'étaient pas sélectionnées.
