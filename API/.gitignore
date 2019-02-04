@@ -1,0 +1,6 @@
+.idea/
+.vscode/
+vendor/
+API.iml
+API.code-workspace
+composer.lock
