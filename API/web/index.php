@@ -90,4 +90,70 @@ $app->getApp()->delete("/messages/delete/{id:[0-9]+}", function (\Slim\Http\Requ
     ]);
 })->setName("messages_delete");
 
+$app->getApp()->get("/users", function (\Slim\Http\Request $req, \Slim\Http\Response $res, $args) {
+    $res->withHeader('Content-Type', 'application/json; charset=UTF-8');
+    $data = $this->db->query("SELECT * FROM users", []);
+    return $res->withJson($data);
+})->setName("get_all_users");
+
+$app->getApp()->get("/users/{id}", function (\Slim\Http\Request $req, \Slim\Http\Response $res, $args) {
+    $res->withHeader('Content-Type', 'application/json; charset=UTF-8');
+    $data = $this->db->query("SELECT * FROM users WHERE id = :id", [
+        "id" => $args["id"]
+    ]);
+    return $res->withJson($data);
+})->setName("get_one_user");
+
+$app->getApp()->post("/users/new", function (\Slim\Http\Request $req, \Slim\Http\Response $res, $args) {
+    $res->withHeader('Content-Type', 'application/json; charset=UTF-8');
+    $username = trim(stripcslashes(htmlentities($req->getParam('username'))));
+    $password = trim(stripcslashes(htmlentities($req->getParam('password'))));
+    if (empty($username)) {
+        return $res->withJson([
+            "error" => "Username parameter is not correct.",
+            "executed_at" => (new DateTime())->format('Y-m-d H:i:s')
+        ]);
+    }
+    $this->db->query("INSERT INTO users(username, password) VALUES(:username, :password)", [
+        "username" => $username,
+        "password" => $password
+    ]);
+    return $res->withJson([
+        "success" => "User is created.",
+        "executed_at" => (new DateTime())->format('Y-m-d H:i:s')
+    ]);
+})->setname("users_add");
+
+$app->getApp()->put("/users/update/{id:[0-9]+}", function (\Slim\Http\Request $req, \Slim\Http\Response $res, $args) {
+    $res->withHeader('Content-Type', 'application/json; charset=UTF-8');
+    $username = trim(stripcslashes(htmlentities($req->getParam('username'))));
+    $password = trim(stripcslashes(htmlentities($req->getParam('password'))));
+    if (empty($username)) {
+        return $res->withJson([
+            "error" => "Username parameter is not correct.",
+            "executed_at" => (new DateTime())->format('Y-m-d H:i:s')
+        ]);
+    }
+    $this->db->query("UPDATE users SET username = :username, password = :password WHERE id = :id", [
+        "username" => $username,
+        "password" => $password,
+        "id" => $args["id"]
+    ]);
+    return $res->withJson([
+        "success" => "User is updated.",
+        "executed_at" => (new DateTime())->format('Y-m-d H:i:s')
+    ]);
+})->setname("users_update");
+
+$app->getApp()->delete("/users/delete/{id:[0-9]+}", function (\Slim\Http\Request $req, \Slim\Http\Response $res, $args) {
+    $res->withHeader('Content-Type', 'application/json; charset=UTF-8');
+    $this->db->query("DELETE FROM users WHERE id = :id", [
+        "id" => $args['id']
+    ]);
+    return $res->withJson([
+        "success" => "User is deleted.",
+        "executed_at" => (new DateTime())->format('Y-m-d H:i:s')
+    ]);
+})->setName("users_delete");
+
 $app->run();
