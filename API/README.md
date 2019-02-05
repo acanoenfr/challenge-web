@@ -13,5 +13,5 @@ Users :
 - GET /users : Get all messages
 - GET /users/{id} : Get a message by id
 - POST /users/new : Create a message (Necessaries Queries :  username, password (don't set this if null))
-- PUT /users/update/{id} : Update a message by id (Necessaries Queries : username, password (don't set this if null))
+- PUT /users/update/{id} : Update a message by id (Necessaries Queries : username, role, password (don't set this if null))
 - DELETE /users/delete/{id} : Delete a message by id

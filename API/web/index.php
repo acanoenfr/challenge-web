@@ -128,15 +128,17 @@ $app->getApp()->put("/users/update/{id:[0-9]+}", function (\Slim\Http\Request $r
     $res->withHeader('Content-Type', 'application/json; charset=UTF-8');
     $username = trim(stripcslashes(htmlentities($req->getParam('username'))));
     $password = trim(stripcslashes(htmlentities($req->getParam('password'))));
+    $role = trim(stripcslashes(htmlentities($req->getParam('role'))));
     if (empty($username)) {
         return $res->withJson([
             "error" => "Username parameter is not correct.",
             "executed_at" => (new DateTime())->format('Y-m-d H:i:s')
         ]);
     }
-    $this->db->query("UPDATE users SET username = :username, password = :password WHERE id = :id", [
+    $this->db->query("UPDATE users SET username = :username, password = :password, role = :role WHERE id = :id", [
         "username" => $username,
         "password" => $password,
+        "role" => $role,
         "id" => $args["id"]
     ]);
     return $res->withJson([
