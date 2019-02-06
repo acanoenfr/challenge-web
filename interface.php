@@ -15,7 +15,7 @@
 
     <body>
 		<nav>
-            <div class="nav-wrapper">
+            <div class="nav-wrapper materialize-red">
             </div>
         </nav>
         <div id="main-container">
