@@ -27,9 +27,27 @@ $query = "SELECT id FROM users";
 			$prep->bindValue(':content', $_POST['message']);
 			$prep->bindValue(':user_id', $user_id);
 			$prep->execute();
+            
+            $target_dir = "img/";
+            $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+            $uploadOk = 1; 
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION)); 
+            
+            if(isset($_POST["submit"])){
+                $check = getimagesize($_FILES["fileToUpload"]["temp_name"]);
+                
+                if($check !== false) {
+                    echo "File is an image - ".$check["mine"]."."; 
+                    $uploadOK = 1;
+                } else {
+                    echo "File is not an image. "; 
+                    $uploadOK = 0;
+                }
+            }
+            
  		}
 	}
-	header('Location: modification.php');
-    exit();
+	//header('Location: modification.php');
+   // exit();
 
 ?>
