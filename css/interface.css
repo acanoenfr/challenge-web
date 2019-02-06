@@ -1,0 +1,120 @@
+#main-container {
+    display: flex;
+    flex: 1 1 auto; 
+}
+main[role="main"]{
+    width: 100%; 
+}
+
+.homepage-content {
+    display: flex; 
+    height: 100%;
+}
+.container {
+    margin-top: 50px;
+}
+  
+.homepage-sign-in-section {
+    display: flex; 
+    background: #f6f6f6;
+}
+
+.homepage-sign-in-container {
+    display: flex;
+    flex-direction: column;
+    width: 700px; 
+    margin: 0 auto; 
+    padding: 20px 30px;
+
+}
+
+.homepage-logo-container{
+    text-align: center;
+    
+}
+.homepage-platform-logo{
+    width: 250px;
+    margin: 0 0 30px;
+}
+.homepage-sign-in {
+    padding: 20px 50px; 
+    border-radius: 3px; 
+    background: #ffff; 
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0,0.1); 
+}
+
+.homepage-create-section {
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-end; 
+    background: #b3e5fc !important; 
+    color: #fff;
+}
+
+.homepage-welcome {
+    flex: 1 0 auto; 
+    width: 909px; 
+    padding: 80px 60px 40px; 
+}
+.homepage-welcome-title {
+    line-height: 35px;
+}
+h2 {
+    font-size: 30px; 
+    font-weight: 400;
+    margin: 0 0 20px;
+    text-rendering: optimizeLegibility;
+}
+
+.homepage-headline {
+    width: 100%; 
+    margin: 0 0 30px; 
+    font-size: 17px; 
+    line-height: 30px; 
+}
+.list-calen {
+    width: 50%;
+}
+p {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.edit-list li a {
+    width: 80px; 
+    height: 80px; 
+    line-height: 80px; 
+    padding: 0px; 
+    margin: 10px; 
+    font-size: 23px;
+    display: inline-block; 
+    color: #ffff; 
+    text-align: center; 
+    text-decoration: none;
+   float: left;
+    
+}
+.adim-gestion-com a {
+     background-color: #d73362;
+}
+
+.electr-auto-info a {
+    background-color: #0093d2;
+}
+
+.industrielles-materiaux a {
+    background-color: #51656f;
+}
+
+.chimie-biologie a {
+    background-color: #89ba17;
+}
+
+.travaux-public-energie a {
+    background-color: #f08a00; 
+}
+
+.text a {
+    font-weight: bold; 
+}
