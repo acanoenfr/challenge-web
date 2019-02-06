@@ -2,12 +2,8 @@
     include("includes/connexion.inc.php"); 
 ?>
 <div class="row">
-<form method="post" action="message">
+<form method="post" action="message.php">
     <div class="col-sm-10">
-        <div class="">
-            <textarea id="message" name="message" value=""></textarea>
-            <input type="hidden" id="id" name="id" class="" value="">
-        </div>
          <div class="">
             <textarea id="message" name="message" value=""></textarea>
              <input type="file" id="file" name="file" class="" value="">
