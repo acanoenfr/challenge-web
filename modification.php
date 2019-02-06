@@ -35,7 +35,23 @@
         <button type="submit" class="">Envoyer</button>
     </div>
 </form>
-    <a href="interface.php?id=<??>"><button>Modifier</button></a>
-    <a href="interface.php?id=<??>"><button>Supprimer</button></a>
+    <?php
+    include("includes/connexion.inc.php");
+    $query = "SELECT * FROM messages";
+ 	$prepare = $bdd->prepare($query);
+ 	$prepare->execute();
+ 	while($data = $prepare->fetch()){
+        $id = $data['id'];
+        $message = $data['content'];
+        $date = $data['create_at'];
+ 	 ?>
+    <p><?php echo $message; ?></p>
+    <p><?php echo $data; ?></p>
+    <a href="interface.php?id=<?= $id ?>"><button>Modifier</button></a>
+    <a href="interface.php?id=<?= $id ?>"><button>Supprimer</button></a>
+    <?php 
+         }   
+            
+    ?>
 </div>
 </div>
