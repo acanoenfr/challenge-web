@@ -14,10 +14,6 @@
     </head>
 
     <body>
-		<nav>
-            <div class="nav-wrapper">
-            </div>
-        </nav>
         <div id="main-container">
             <main class="" role="main">
                 <div class="homepage-content">
@@ -56,7 +52,6 @@
                                 <h2 class="homepage-welcome-title">Hello !
                                 </h2>
                                 <div class="homepage-headline">
-                                    <p><img src="img/Calendar.png" alt="icon-calendar"></p>
                                     <p>EMPLOI DU TEMPS ETUDIANT</p>
                                     <div class="list-calen">
                                     <ul class="edit-list">
