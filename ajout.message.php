@@ -22,23 +22,103 @@
 <body>
 <?php
 include('includes/header.admin.php');
-if(!empty($_POST) && !empty($_FILE)){ 
-    $nom = "/img/";
-    $name = $_FILES['image']['name'];
-    $envoi = move_uploaded_file($_FILES['image']['tmp_name'],$nom.$name);
-    if ($envoi){
-        echo "Transfert réussi";
-    } else {
-        echo "Echec du transfert";
+include('includes/connexion.inc.php');
+define('ROOT', dirname(__FILE__));
+define('TARGET', '/img/');
+define('MAX_SIZE', 100000);    // Taille max en octets du fichier
+define('WIDTH_MAX', 800);    // Largeur max de l'image en pixels
+define('HEIGHT_MAX', 800);    // Hauteur max de l'image en pixels 
+    $id = $_SESSION['auth']['id'];
+    $tabExt = array('jpg','gif','png','jpeg');    // Extensions autorisees
+    $infosImg = array();
+    $extension = '';
+    $message = '';
+    $nomImage = '';
+if(!empty($_POST) && (!empty($_FILES))) { 
+    if( !empty($_FILES['image']['name']) )
+    {
+    // Recuperation de l'extension du fichier
+    $extension  = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+ 
+    // On verifie l'extension du fichier
+    if(in_array(strtolower($extension),$tabExt))
+    {
+      // On recupere les dimensions du fichier
+      $infosImg = getimagesize($_FILES['image']['tmp_name']);
+ 
+      // On verifie le type de l'image
+      if($infosImg[2] >= 1 && $infosImg[2] <= 14)
+      {
+        // On verifie les dimensions et taille de l'image
+        if(($infosImg[0] <= WIDTH_MAX) && ($infosImg[1] <= HEIGHT_MAX) && (filesize($_FILES['image']['tmp_name']) <= MAX_SIZE))
+        {
+          // Parcours du tableau d'erreurs
+          if(isset($_FILES['image']['error']) 
+            && UPLOAD_ERR_OK === $_FILES['image']['error'])
+          {
+            // On renomme le fichier
+            $nomImage = md5(uniqid()) .'.'. $extension;
+ 
+            // Si c'est OK, on teste l'upload
+            if(move_uploaded_file($_FILES['image']['tmp_name'], ROOT."/img/".$nomImage))
+            {
+              $message = 'Upload réussi !';
+            }
+            else
+            {
+              // Sinon on affiche une erreur systeme
+              $message = 'Problème lors de l\'upload !';
+            }
+          }
+          else
+          {
+            $message = 'Une erreur interne a empêché l\'uplaod de l\'image';
+          }
+        }
+        else
+        {
+          // Sinon erreur sur les dimensions et taille de l'image
+          $message = 'Erreur dans les dimensions de l\'image !';
+        }
+      }
+      else
+      {
+        // Sinon erreur sur le type de l'image
+        $message = 'Le fichier à uploader n\'est pas une image !';
+      }
     }
-    $contenu = $_POST['content'];
+    else
+    {
+      // Sinon on affiche une erreur pour l'extension
+      $message = 'L\'extension du fichier est incorrecte !';
+    }
+  }
+  else
+  {
+    // Sinon on affiche une erreur pour le champ vide
+    $message = 'Veuillez remplir le formulaire svp !';
+  }
+    $content = $_POST['content'];
     $date = date("Y-m-d H:i:s");
-    $req = $bdd->prepare('INSERT INTO messages(content, date) VALUES(:content, :date)');
+    $req = $bdd->prepare('INSERT INTO messages(content, image, created_at,user_id) VALUES(:content, :image, :created_at, :user_id)');
+    $req->execute(array(
+            'content' => $content,
+            'image' => $nomImage,
+            'created_at' => $date,
+            'user_id' => $id,
+        ));
+  }
+  elseif(!empty($_POST) && (empty($_FILES))) {
+    $content = $_POST['content'];
+    $date = date("Y-m-d H:i:s");
+    $req = $bdd->prepare('INSERT INTO messages(content, created_at,user_id) VALUES(:content, :created_at, :user_id)');
     $req->execute(array(
             'content' => $content,
             'created_at' => $date,
+            'user_id' => $id,
         ));
   }
+
 ?>
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
