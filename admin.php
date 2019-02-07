@@ -46,7 +46,7 @@ $(document).ready(function(){
 });
 </script>
 <?php
-include('includes/footer.admin.php');
+//include('includes/footer.admin.php');
 ?>
 </body>
 </html>

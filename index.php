@@ -32,9 +32,14 @@
                 $req->execute([
                     "username" => $username
                 ]);
+                $user = explode('.', $username);
+                $user[0] = strtoupper($user[0]);
+                $user[1] = ucfirst($user[1]);
+                $user = implode(' ', $user);
                 $_SESSION['auth'] = [
                     "id" => $db->lastInsertId(),
-                    "user" => $username
+                    "username" => $username,
+                    "displayname" => $user
                 ];
                 header('Location: admin.php');
                 exit();
