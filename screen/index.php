@@ -130,7 +130,7 @@
                         <p><?php echo $element[1]; ?></p>
                     </div>
 
-                    <div class="image"><center><?php echo "<img src='".$element[2]."'>"; ?></center></div>
+                    <div class="image"><center><?php echo "<img src='../img/".$element[2]."'>"; ?></center></div>
                         
                         ?>
                     </div>
