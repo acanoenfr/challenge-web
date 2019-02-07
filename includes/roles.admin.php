@@ -2,7 +2,7 @@
     <div class="container">
       <br><br>
       <div class="center-align">
-        <a href="admin.php"" class="waves-effect waves-light btn-small center" >Retour en arrière</a>
+        <a href="admin.php" class="waves-effect waves-light btn-small center" >Retour en arrière</a>
       </div>
       <h1 class="header center teal-text">Utilisateurs</h1>
       <table>
@@ -21,7 +21,7 @@
             });
           </script>
         <?php
-          $bdd = new PDO('mysql:host=localhost;dbname=challenge;charset=utf8', 'root', '');    
+          $bdd = new PDO('mysql:host=localhost;dbname=broadcaster;charset=utf8', 'root', '');    
           $req = $bdd->query('SELECT * FROM users');
           while ($donnees = $req->fetch())
           {

@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         <?php
-          $bdd = new PDO('mysql:host=localhost;dbname=challenge;charset=utf8', 'root', '');    
+          $bdd = new PDO('mysql:host=localhost;dbname=broadcaster;charset=utf8', 'root', '');    
           $req = $bdd->query('SELECT * FROM messages');
           while ($donnees = $req->fetch())
           {
