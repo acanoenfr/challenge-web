@@ -4,8 +4,6 @@
         <div class="col l6 s12">
           <h5 class="white-text">Description</h5>
           <p class="grey-text text-lighten-4">Partie administration de notre application de diffusion d'informations.</p>
-
-
         </div>
         <div class="col l3 s12">
           <h5 class="white-text">Settings</h5>

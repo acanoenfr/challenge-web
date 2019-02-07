@@ -43,7 +43,7 @@
  	while($data = $prepare->fetch()){
         $id = $data['id'];
         $message = $data['content'];
-        $date = $data['create_at'];
+        $date = $data['created_at'];
  	 ?>
     <p><?php echo $message; ?></p>
     <p><?php echo $data; ?></p>
