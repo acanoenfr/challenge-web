@@ -7,16 +7,8 @@
       <section id='section2'>
       <div class="center-align">
       <h1 class="header center teal-text">Messages</h1>
-      <a class="waves-effect waves-light-green btn-small center" style="background-color: #8bc34a" id="ajoutBttn">Ajouter un message</a>
+      <a href="ajout.message.php" class="waves-effect waves-light-green btn-small center" style="background-color: #8bc34a">Ajouter un message</a>
       </div>
-      <script>
-        $(document).ready(function(){
-        $('#ajoutBttn').click(function(event){
-        $('#section2').load('includes/ajout.message.php');
-        event.preventDefault();
-        });
-        });
-      </script>
       <table>
         <thead>
           <tr>
