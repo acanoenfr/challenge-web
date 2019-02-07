@@ -8,13 +8,21 @@
 
 require "../vendor/autoload.php";
 
+// Initialize application
+
 $app = new \App\App();
 
+// Get Slim Container
+
 $container = $app->getApp()->getContainer();
+
+// Container functions
 
 $container['db'] = function ($container) {
     return new \App\Database("localhost", "broadcaster", "root", "root", true);
 };
+
+// API functions
 
 $app->getApp()->get("/messages", function (\Slim\Http\Request $req, \Slim\Http\Response $res, array $args) {
     $res->withHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -157,5 +165,7 @@ $app->getApp()->delete("/users/delete/{id:[0-9]+}", function (\Slim\Http\Request
         "executed_at" => (new DateTime())->format('Y-m-d H:i:s')
     ]);
 })->setName("users_delete");
+
+// Run application
 
 $app->run();
