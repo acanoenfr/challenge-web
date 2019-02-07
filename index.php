@@ -28,10 +28,18 @@
 
             if ($connected) {
                 $db = new PDO("mysql:host=localhost;dbname=broadcaster", "root", "root");
-                $req = $db->prepare("INSERT INTO users(username) VALUES(:username)");
-                $req->execute([
+
+                $is_logged = $db->prepare("SELECT * FROM users WHERE username = :username");
+                $is_logged->execute([
                     "username" => $username
                 ]);
+
+                if ($is_logged->rowCount() == 0) {
+                    $req = $db->prepare("INSERT INTO users(username) VALUES(:username)");
+                    $req->execute([
+                        "username" => $username
+                    ]);
+                }
                 $user = explode('.', $username);
                 $user[0] = strtoupper($user[0]);
                 $user[1] = ucfirst($user[1]);
