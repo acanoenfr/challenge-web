@@ -23,7 +23,6 @@
               <th>Contenu</th>
               <th>Image</th>
               <th>Créé le</th>
-              <th>Modifier</th>
               <th>Supprimer</th>
           </tr>
         </thead>
@@ -36,7 +35,6 @@
             echo '<tr>
             <td>'.$donnees['content'].'</td>
             <td>'.$donnees['image'].'</td>
-            <td>'.$donnees['created_at'].'</td>
             <td>'.$donnees['created_at'].'</td>
             <td><a class="btn-small center" href="suppression.php?id='.$donnees['id'].'">Supprimer</a>
             </td>
