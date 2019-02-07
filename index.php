@@ -1,74 +1,3 @@
-  <?php session_start();
-  
-    if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
-        $username = trim(htmlentities(stripcslashes(htmlspecialchars($_POST['username']))));
-        $password = trim(htmlentities(stripcslashes(htmlspecialchars($_POST['password']))));
-        $found = 0;
-
-        $conn = ldap_connect("10.10.28.101", 389);
-        ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_set_option($conn, LDAP_OPT_REFERRALS, 0);
-
-        $dn = "dc=iutcb, dc=univ-littoral, dc=fr";
-
-        $res = ldap_search($conn, "OU=Groups, $dn", "(CN=lpdim)", ["memberuid"]);
-        $data = ldap_get_entries($conn, $res);
-
-        foreach ($data[0]["memberuid"] as $member) {
-            if ($username === $member) {
-                $found = 1;
-                break;
-            }
-        }
-
-        if ($found) {
-
-            $connected = ldap_bind($conn, "uid=$username, ou=Users, $dn", $password);
-
-            if ($connected) {
-                $db = new PDO("mysql:host=localhost;dbname=broadcaster", "root", "root");
-
-                $is_logged = $db->prepare("SELECT * FROM users WHERE username = :username");
-                $is_logged->execute([
-                    "username" => $username
-                ]);
-
-                if ($is_logged->rowCount() == 0) {
-                    $req = $db->prepare("INSERT INTO users(username) VALUES(:username)");
-                    $req->execute([
-                        "username" => $username
-                    ]);
-                }
-                $user = explode('.', $username);
-                $user[0] = strtoupper($user[0]);
-                $user[1] = ucfirst($user[1]);
-                $user = implode(' ', $user);
-                $_SESSION['auth'] = [
-                    "id" => $db->lastInsertId(),
-                    "username" => $username,
-                    "displayname" => $user
-                ];
-                header('Location: admin.php');
-                exit();
-            } else {
-                $_SESSION['flash'] = "Votre mot de passe est incorrect !";
-                header('Location: index.php');
-                exit();
-            }
-
-        } else {
-            $_SESSION['flash'] = "Vous n'avez pas l'autorisation pour accéder à cet interface !";
-            header('Location: index.php');
-            exit();
-        }
-
-        ldap_close($conn);
-
-    }
-  
-  ?>
-  
   <!DOCTYPE html>
   <html>
     <head>
@@ -95,25 +24,22 @@
                             </div>
                             <div class="homepage-sign">
                                    <div class="row">
-                                <form method="post" action="" class="">
-                                    <?php if (array_key_exists('flash', $_SESSION)) { ?>
-                                        <p><?= $_SESSION['flash'] ?></p>
-                                    <?php unset($_SESSION['flash']); } ?>
+                                <form class="">
                                     <div class="row">
                                         <div class="input-field col s10">
-                                            <input id="first_name" type="text" name="username" class="validate">
+                                            <input id="first_name" type="text" class="validate">
                                                 <label for="first_name">Username</label>
                                             </div>
                                         </div>
                                     <div class="row">
                                         <div class="input-field col s10">
-                                            <input id="password" type="password" name="password" class="validate">
+                                            <input id="password" type="password" class="validate">
                                              <label for="password">Password</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s12">
-                                            <button type="submit" class="waves-effect waves-light btn">Login</button>
+                                            <a class="waves-effect waves-light btn">Login</a>
                                         </div>
                                     </div>
                                 </form>

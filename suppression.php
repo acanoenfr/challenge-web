@@ -1,14 +1,12 @@
 <?php
 include ('includes/connexion.inc.php');
-
+$id = $_GET['id'];
 if(isset($_GET['id']) && !empty($_GET['id']))
 {
   $query = 'DELETE FROM messages WHERE id=:id';
-  $prep = $pdo->prepare($query);
-  $prep->bindValue(':id',$_GET['id']);
+  $prep = $bdd->prepare($query);
+  $prep->bindValue(':id',$id);
   $prep->execute();
 }
-
-header('Location: modification.php');
-exit();
+header('Location: admin.php');
 ?>

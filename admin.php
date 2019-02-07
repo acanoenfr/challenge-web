@@ -1,11 +1,3 @@
-<?php session_start();
-
-  if (!array_key_exists("auth", $_SESSION)) {
-    header('Location: index.php');
-  }
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,8 +37,5 @@ $(document).ready(function(){
   });
 });
 </script>
-<?php
-//include('includes/footer.admin.php');
-?>
 </body>
 </html>
