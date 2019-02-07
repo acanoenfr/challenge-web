@@ -7,7 +7,7 @@
       <section id='section2'>
       <div class="center-align">
       <h1 class="header center teal-text">Messages</h1>
-      <a class="waves-effect waves-light-green btn-small center" style="background-color: #8bc34a" id "ajoutBttn">Ajouter un message</a>
+      <a class="waves-effect waves-light-green btn-small center" style="background-color: #8bc34a" id="ajoutBttn">Ajouter un message</a>
       </div>
       <script>
         $(document).ready(function(){
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         <?php
-          $bdd = new PDO('mysql:host=localhost;dbname=broadcaster;charset=utf8', 'root', '');    
+          $bdd = new PDO('mysql:host=localhost;dbname=broadcaster;charset=utf8', 'root', 'root');    
           $req = $bdd->query('SELECT * FROM messages');
           while ($donnees = $req->fetch())
           {

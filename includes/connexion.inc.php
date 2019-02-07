@@ -1,7 +1,7 @@
 <?php
 $serv="localhost"; 
 $user="root"; 
-$pass=""; 
+$pass="root"; 
 $db="broadcaster"; 
 try{
   $bdd = new PDO("mysql:host=$serv;dbname=$db", $user, $pass);
