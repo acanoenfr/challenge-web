@@ -2,7 +2,7 @@
     <div class="container">
       <br><br>
       <div class="center-align">
-        <a href="admin.php"" class="waves-effect waves-light btn-small center" >Retour en arrière</a>
+        <a href="admin.php" class="waves-effect waves-light btn-small center" >Retour en arrière</a>
       </div>
       <section id='section2'>
       <div class="center-align">

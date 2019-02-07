@@ -10,7 +10,7 @@ $query = "SELECT id FROM users";
  	$data = $prepare->fetch();
  	$user_id = $data['id'];
 
-	if (isset($_POST['message']) && !empty($_POST['message']))
+	if (isset($_POST['content']) && !empty($_POST['content']))
 	{
 		if(isset( $_POST['id']) && !empty( $_POST['id']))
 		{

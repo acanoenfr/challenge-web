@@ -20,7 +20,7 @@
           $connected = ldap_bind($conn, "uid=$username, ou=Users, $dn", $password);
           if ($connected) {
               $db = new PDO("mysql:host=localhost;dbname=broadcaster", "root", "root");
-              $is_logged = $db->prepare("SELECT * FROM users WHERE username = :username");
+              $is_logged = $db->prepare("SELECT * FROM users WHERE username = :username LIMIT 1");
               $is_logged->execute([
                   "username" => $username
               ]);
@@ -30,6 +30,7 @@
                       "username" => $username
                   ]);
               }
+              $info = $is_logged->fetch(\PDO::FETCH_ASSOC);
               $user = explode('.', $username);
               $user[0] = strtoupper($user[0]);
               $user[1] = ucfirst($user[1]);
@@ -37,7 +38,8 @@
               $_SESSION['auth'] = [
                   "id" => $db->lastInsertId(),
                   "username" => $username,
-                  "displayname" => $user
+                  "displayname" => $user,
+                  "role" => $info['role']
               ];
               header('Location: admin.php');
               exit();

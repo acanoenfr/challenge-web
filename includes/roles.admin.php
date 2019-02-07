@@ -1,3 +1,23 @@
+<?php require('connexion.inc.php');
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $id = $_POST['id'];
+    $role = $_POST['role'];
+
+    $req = $bdd->prepare("UPDATE users SET role = :role WHERE id = :id");
+    $req->execute([
+      "role" => $role,
+      "id" => $id
+    ]);
+
+    header('Location: ../admin.php');
+    exit();
+
+  }
+
+?>
+
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
@@ -8,8 +28,7 @@
       <table>
         <thead>
           <tr>
-              <th>Username</th>
-              <th>Password</th>
+              <th>Nom d'utilisateur</th>
               <th>Rôle</th>
               <th>Choisir un rôle</th>
           </tr>
@@ -25,26 +44,30 @@
           $req = $bdd->query('SELECT * FROM users');
           while ($donnees = $req->fetch())
           {
+            $isAdmin = ($donnees['role'] === "admin") ? "selected" : "";
+            $isUser = ($donnees['role'] === "user") ? "selected" : "";
             switch ($donnees['role']) {
-              case 0:
+              case "admin":
                   $role="Administrateur";
                   break;
-              case 1:
-                  $role="Professeur";
+              case "user":
+                  $role="Utilisateur";
                   break;
              }
             echo '<tr>
             <td>'.$donnees['username'].'</td>
-            <td>'.$donnees['password'].'</td>
             <td>'.$role.'</td>
-            <td> <form action="roles.admin.php" method="post">
+            <td> <form action="includes/roles.admin.php" method="post">
                    <div class="input-field col s12" id"choix">
-                      <select>
-                        <option value="1">Administrateur</option>
-                        <option value="2">Professeur</option>
+                      <select name="role">
+                        <option value="admin" '.$isAdmin.'>Administrateur</option>
+                        <option value="user" '.$isUser.'>Utilisateur</option>
                       </select>
+                      <input type="hidden" name="id" value="'.$donnees['id'].'">
+                      <button type="submit" class="waves-effect waves-light btn">Changer le rôle</button>
+                    </div>
                   </form>
-              </div></td>
+              </td>
             </tr>';
             ?>
             <script>
