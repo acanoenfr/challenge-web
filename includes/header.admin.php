@@ -4,11 +4,13 @@
       <li><a href="/starter-template/admin.php">Administration</a></li>
         <li><a href="/starter-template/messages.admin.php">Gestion messages</a></li>
         <li><a href="/starter-template/roles.admin.php">Gestion rôles</a></li>
+        <li><a href="/logout.php">Déconnexion</a></li>
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
         <li><a href="/messages.php">Gestion messages</a></li>
         <li><a href="/roles.php">Gestion rôles</a></li>
+        <li><a href="/logout.php">Déconnexion</a></li>
 
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
